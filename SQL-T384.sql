@@ -164,3 +164,52 @@ select * from Employee;
 select * from Projects;
 select * from Address;
 select * from Employee where department="hr";
+
+CREATE DATABASE company;
+Use company;
+
+CREATE TABLE Employee (
+     ID INT PRIMARY KEY,
+     Name VARCHAR(100) NOT NULL,
+     Age int);
+     
+CREATE TABLE project (
+	Project_ID INT PRIMARY KEY,
+    Project_Name VARCHAR(100) NOT NULL,
+    Employee_ID INT,
+    FOREIGN KEY (Employee_ID)
+    REFERENCES Employee(ID)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE);
+
+INSERT INTO Employee (ID, Name, Age) VALUES
+(101, 'Alice Smith', 30),
+(102, 'Bob Jones', 28);
+
+INSERT INTO project (Project_ID, Project_Name, Employee_ID) VALUES
+(1, 'Website Redesign', 101),
+(2, 'Cloud Migration', 101),
+(3, 'Mobile App', 102);
+
+select * from Employee;
+select * from project;
+
+UPDATE Employee
+SET ID = 999
+WHERE ID = 101;
+
+DELETE FROM Employee
+WHERE ID = 999;
+
+use bankingdb;
+ALTER TABLE Accounts 
+ADD CONSTRAINT FK_Customers
+FOREIGN KEY(AccountID)
+REFERENCES Customers(CustomerID);
+
+ALTER TABLE Accounts ADD Customer_ID INT;
+select * from Accounts;
+ALTER TABLE Accounts 
+ADD CONSTRAINT F_K
+FOREIGN KEY(Customer_ID)
+REFERENCES Customers(CustomerID);
