@@ -255,3 +255,10 @@ SELECT * FROM employee order by EmployeeId limit 4 OFFSET 3; -- same as previous
 SELECT * FROM projects;
 SELECT * FROM projects WHERE EmployeeId is NOT NULL;
 SELECT * FROM projects WHERE EmployeeId is NULL;
+
+select FullName, salary,
+case 
+    when salary>=50000 then "Highly Paid"
+    else "Low Paid"
+    end as "Remarks"
+    from employee;
