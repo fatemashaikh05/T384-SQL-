@@ -213,3 +213,45 @@ ALTER TABLE Accounts
 ADD CONSTRAINT F_K
 FOREIGN KEY(Customer_ID)
 REFERENCES Customers(CustomerID);
+
+use bankingdb;
+SELECT * FROM Employee;
+SELECT FullName, Salary from Employee;
+SELECT * FROM Employee
+WHERE Department="IT";
+SELECT * FROM Employee
+WHERE Department="IT" and Age=28;
+SELECT * FROM Employee WHERE Age in (23,25);
+SELECT * FROM Employee WHERE Salary in (35000,75000);
+SELECT * FROM Employee WHERE Salary between 50000 and 75000;
+SELECT * FROM Employee WHERE EmployeeId IN (1002,1007,1010);
+
+SELECT * FROM Employee
+WHERE FullName LIKE 'M%';
+SELECT * FROM Employee
+WHERE FullName LIKE '%n';
+SELECT * FROM Employee
+WHERE FullName LIKE '_a%';
+SELECT * FROM Employee
+WHERE FullName LIKE '__m%';
+SELECT * FROM Employee
+WHERE FullName LIKE '%t_';
+SELECT * FROM Employee
+WHERE FullName LIKE '%l%';
+
+SELECT * FROM Employee order by age; -- by default ascending order --
+SELECT * FROM Employee order by age desc; -- for descending order --
+SELECT distinct age FROM employee;
+SELECT * FROM employee order by EmployeeId desc limit 5;
+SELECT * FROM employee order by EmployeeId limit 2,4; -- give records from 3 and only 4 records will display --
+SELECT * FROM employee order by EmployeeId limit 5 offset 2; -- 5 records will display and from record 3 --
+
+SELECT * FROM employee order by Fullname;
+SELECT * FROM employee order by salary desc limit 5;
+SELECT distinct Department FROM employee;
+SELECT * FROM employee order by EmployeeId limit 3,4;
+SELECT * FROM employee order by EmployeeId limit 4 OFFSET 3; -- same as previous query only other method --
+
+SELECT * FROM projects;
+SELECT * FROM projects WHERE EmployeeId is NOT NULL;
+SELECT * FROM projects WHERE EmployeeId is NULL;
