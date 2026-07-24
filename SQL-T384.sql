@@ -214,6 +214,7 @@ ADD CONSTRAINT F_K
 FOREIGN KEY(Customer_ID)
 REFERENCES Customers(CustomerID);
 
+-- 23-07-26 --
 use bankingdb;
 SELECT * FROM Employee;
 SELECT FullName, Salary from Employee;
@@ -262,3 +263,36 @@ case
     else "Low Paid"
     end as "Remarks"
     from employee;
+    
+-- 24-07-26 --
+-- Group By --
+SELECT Department, count(Department) FROM Employee GROUP BY Department; 
+SELECT Department, count(Department) FROM Employee WHERE gender="Male" GROUP BY Department; 
+SELECT Department, count(Department) FROM Employee WHERE salary>=50000 GROUP BY Department; 
+
+-- Group By with Having Clause --
+SELECT Department, sum(salary) FROM Employee GROUP BY Department HAVING sum(salary)>150000; 
+SELECT Gender, count(FullName) FROM Employee WHERE gender="Male" GROUP BY Gender; 
+SELECT Gender, count(*) FROM Employee GROUP BY Gender; 
+SELECT Gender, sum(salary), count(*) FROM Employee GROUP BY Gender HAVING sum(salary)>=250000;
+select * from employee;
+-- WINDOWS Function --
+SELECT EmployeeId, FullName, Department, Salary, SUM(Salary)
+OVER (PARTITION BY Department) AS DepartmentTotalSalary FROM Employee ORDER BY Department;
+SELECT EmployeeId, FullName, Department, Salary, AVG(Salary)
+OVER (PARTITION BY Department) AS DepartmentAverageSalary FROM Employee ORDER BY Department;
+SELECT EmployeeId, FullName, Gender, Age, AVG(Age)
+OVER (PARTITION BY Gender) AS AverageAge FROM Employee ORDER BY Gender;
+
+-- ROW NUMBER() --
+SELECT EmployeeId, FullName, Department, ROW_NUMBER() 
+OVER (PARTITION BY Department) AS RankInDepartment FROM Employee ORDER BY Department;
+
+-- RANK() --
+SELECT EmployeeId, FullName, Department, Salary, RANK() 
+OVER (ORDER BY Salary) AS OverallSalaryRank FROM Employee ORDER BY OverallSalaryRank;
+
+-- DENSE_RANK() --
+SELECT EmployeeId, FullName, Department, Salary, DENSE_RANK() 
+OVER (ORDER BY Salary) AS OverallSalaryRank FROM Employee ORDER BY OverallSalaryRank;
+
