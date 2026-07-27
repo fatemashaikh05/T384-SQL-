@@ -49,19 +49,15 @@ ALTER TABLE Customers
 ADD DateOfBirth Date;
 select * from Customers;
 
-ALTER TABLE Customers
-ADD Location VARCHAR(100) after LastName;
+ALTER TABLE Customers ADD Location VARCHAR(100) after LastName;
 select * from Customers;
-ALTER TABLE Customers
-ADD Sr_No VARCHAR(100) first;
+ALTER TABLE Customers ADD Sr_No VARCHAR(100) first;
 select * from Customers;
 
-ALTER TABLE Customers
-MODIFY Phone VARCHAR(20);
+ALTER TABLE Customers MODIFY Phone VARCHAR(20);
 select * from Customers;
 
-ALTER TABLE Customers
-MODIFY CustomerID INT primary key;
+ALTER TABLE Customers MODIFY CustomerID INT primary key;
 
 -- Arithmetic Operators --
 select 2+3 as addition;
@@ -96,8 +92,7 @@ insert into voter_table values
 ("Sachin",19,"sachin1@gmail.com"),("Ruhi",22,"ruhi5@gmail.com"),("Sanika",20,"sanika4@gmail.com"),("Rohan",18,"");
 select * from voter_table;
 drop table voter_table;
-insert into voter_table values 
-("Kunal",25,default);
+insert into voter_table values ("Kunal",25,default);
 
 truncate table voter_table; -- Structure of the table exists only all the data in the table are deleted --
 drop table voter_table; -- to delete whole table --
@@ -185,7 +180,6 @@ CREATE TABLE project (
 INSERT INTO Employee (ID, Name, Age) VALUES
 (101, 'Alice Smith', 30),
 (102, 'Bob Jones', 28);
-
 INSERT INTO project (Project_ID, Project_Name, Employee_ID) VALUES
 (1, 'Website Redesign', 101),
 (2, 'Cloud Migration', 101),
@@ -218,21 +212,16 @@ REFERENCES Customers(CustomerID);
 use bankingdb;
 SELECT * FROM Employee;
 SELECT FullName, Salary from Employee;
-SELECT * FROM Employee
-WHERE Department="IT";
-SELECT * FROM Employee
-WHERE Department="IT" and Age=28;
+SELECT * FROM Employee WHERE Department="IT";
+SELECT * FROM Employee WHERE Department="IT" and Age=28;
 SELECT * FROM Employee WHERE Age in (23,25);
 SELECT * FROM Employee WHERE Salary in (35000,75000);
 SELECT * FROM Employee WHERE Salary between 50000 and 75000;
 SELECT * FROM Employee WHERE EmployeeId IN (1002,1007,1010);
 
-SELECT * FROM Employee
-WHERE FullName LIKE 'M%';
-SELECT * FROM Employee
-WHERE FullName LIKE '%n';
-SELECT * FROM Employee
-WHERE FullName LIKE '_a%';
+SELECT * FROM Employee WHERE FullName LIKE 'M%';
+SELECT * FROM Employee WHERE FullName LIKE '%n';
+SELECT * FROM Employee WHERE FullName LIKE '_a%';
 SELECT * FROM Employee
 WHERE FullName LIKE '__m%';
 SELECT * FROM Employee
@@ -296,3 +285,67 @@ OVER (ORDER BY Salary) AS OverallSalaryRank FROM Employee ORDER BY OverallSalary
 SELECT EmployeeId, FullName, Department, Salary, DENSE_RANK() 
 OVER (ORDER BY Salary) AS OverallSalaryRank FROM Employee ORDER BY OverallSalaryRank;
 
+-- 27-07-26 --
+use bankingdb;
+-- STRING Functions --
+-- Concat --
+SELECT concat("Sachin"," ","Tendulkar") as Name;
+SELECT concat(FullName, "-", Department) as Detail FROM Employee;
+
+-- LOWER and UPPER --
+SELECT lower(fullname) FROM Employee;
+SELECT upper(fullname) FROM Employee;
+
+-- Replace ---
+SELECT replace("Hi! How are you?","Hi","Bye");
+SELECT FullName, replace(fullname,"Mohanty","Patil") FROM Employee;
+
+-- Reverse --
+SELECT FullName, reverse(FullName) AS REVERSED FROM Employee;
+
+-- Length --
+SELECT FullName, length(FullName) AS Char_length FROM Employee;
+
+-- Substring --
+SELECT substring("Good Morning",1,3) AS ExtractString;
+SELECT length(substring("Good Morning",1,3)) AS Length_string;
+SELECT FullName, substring(FullName,1,3) AS name_string FROM Employee;
+
+CREATE TABLE Students (
+    Names VARCHAR(30),
+    Modified VARCHAR(30));
+INSERT INTO Students VALUES 
+     ("Aman","Aman  "),
+     ("Suman","  Suman"),
+     ("Kiran"," Kiran "),
+     ("Dinesh","  Dinesh");
+select * from Students;
+select St.*, length(modified) as OG_length, rtrim(modified), length(rtrim(modified)) as ln from Students as St;
+select St.*, length(modified) as OG_length, ltrim(modified), length(ltrim(modified)) as ln from Students as St;
+
+-- MATH Functions --
+select abs(-20); -- Absolute function --
+select abs(+50);
+select abs(-2.4);
+select mod(5,3); -- Modulous function --
+select floor(42.3); -- Floor function --
+select ceiling(42.3); -- Ceiling function --
+select truncate(3.14,1); -- truncate function --
+select truncate(123.45678,0);
+select exp(2); -- Exponent function --
+select exp(5);
+select power(4,2); -- Power function --  
+select power(2,8);
+select sqrt(144); -- Square root function --
+select sqrt(169);
+
+-- DATE Function --
+select curdate();
+select now();
+select sysdate();
+select last_day(now());
+select last_day("2026-10-02");
+select datediff(now(),"2005-12-05");
+select month(now());
+select month("2026-02-15");
+select year(now());
