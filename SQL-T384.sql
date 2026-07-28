@@ -338,6 +338,8 @@ select power(4,2); -- Power function --
 select power(2,8);
 select sqrt(144); -- Square root function --
 select sqrt(169);
+select round(2.6); -- Round Function --
+select round(3.5);
 
 -- DATE Function --
 select curdate();
@@ -349,3 +351,40 @@ select datediff(now(),"2005-12-05");
 select month(now());
 select month("2026-02-15");
 select year(now());
+
+-- 28-07-26 Aggregate Functions --
+select AVG(salary) as avg_salary from Employee; -- Average Function --
+select AVG(salary) as avg_salary from Employee where gender="female";
+select count(*) from Employee; -- Count Function --
+select count(*) from Employee where gender="female"; 
+select max(salary) from Employee; -- Maximum Function --
+select min(salary) from Employee; -- Minimum Function --
+select min(salary) from Employee where Department="IT";
+select sum(salary) from Employee; -- Sum Function --
+select sum(salary) from Employee where department="HR";
+
+select * from Projects;
+select ProjectName , datediff(EndDate,StartDate) as Duration_in_days from Projects;
+select date_format("2026-07-27","%a") as Weekday;
+select date_format("2026-07-27","Month: %b, Weekday: %a") as Weekday;
+select date_format("2026-07-27","%c") as Weekday;
+select date_format("2026-07-27","%d") as Weekday;
+select date_format("2026-07-27","%D %b %a") as Weekday;
+select date_format("2026-07-27","%D %M %a----%j") as Weekday;
+select date_format("2026-07-27","%D %M %W") as Weekday; 
+select date_format("2026-07-27","%D %M %Y %W") as Weekday; -- date-month-year-day --
+select date_format(sysdate(),"%p");
+select date_format(now(),"%p");
+select date_format(enddate,"%D %M %Y %W") as End_date, date_format(startdate,"%D %M %Y %W") as Start_date from Projects;
+select date_format(enddate,"%D %M %Y %W") as End_date, date_format(startdate,"%D %M %Y %W") as Start_date, datediff(enddate,startdate) as Duration from Projects;
+select date_format(enddate,"%D %M %Y %W") as End_date, date_format(startdate,"%D %M %Y %W") as Start_date, datediff(enddate,startdate) as Duration from Projects where datediff(enddate,startdate)>10;
+
+-- Comparison operator --
+select *, if(age>=27,"Senior","Junior") as Status from Employee;
+select *, if(salary >=50000,"HighlyPaid","UnderPaid") as Salary_Status from Employee;
+select *, ifnull(EmployeeId,"No Id Present") as Check1 from Projects;
+select greatest(29,54,25) As Gratest_num;
+select greatest(291,544,725) As Gratest_num;
+select least(29,54,25) As lowest_num;
+select FullName, nullif(FullName,'John Doe') As result from Employee;
+select *, Department, nullif(Department,'IT') As result from Employee;
