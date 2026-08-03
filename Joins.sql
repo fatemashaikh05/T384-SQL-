@@ -518,6 +518,7 @@ SELECT
     ) AS NextLoanAmount
 FROM Loans;
 
+-- Joins --
 show tables;
 use bankingdb;
 select * from projects;
@@ -547,3 +548,51 @@ select projects.EmployeeId,FullName,ProjectId,ProjectName
 from Projects left join Employee
 On employee.EmployeeId=projects.EmployeeId
 where projects.EmployeeId>1004 and FullName like "p%";
+
+use bankingdb;
+select employee.employeeId, employee.FullName, projects.ProjectId, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee left join Projects
+On Employee.EmployeeId=projects.EmployeeId;
+
+select employee.employeeId, employee.FullName, projects.ProjectId, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee left join Projects
+On employee.EmployeeId=projects.EmployeeId
+where projects.ProjectName is null;
+
+select employee.employeeId, employee.FullName, projects.ProjectName, address.State, datediff(enddate,startdate) as Duration
+from Employee left join Projects 
+On employee.EmployeeId=projects.EmployeeId
+left join Address
+On employee.EmployeeId=address.EmployeeId;
+
+select employee.employeeId, employee.FullName, projects.projectid, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee inner join Projects 
+On employee.EmployeeId=projects.EmployeeId;
+
+-- OUTER JOIN ---
+select employee.employeeId, employee.FullName, projects.projectid, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee left join Projects 
+On employee.EmployeeId=projects.EmployeeId
+union
+select Projects.employeeId, employee.FullName, projects.projectid, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee right join Projects 
+On employee.EmployeeId=projects.EmployeeId;
+
+-- FULL OUTER JOIN --
+select employee.employeeId, employee.FullName, projects.projectid, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee left join Projects 
+On employee.EmployeeId=projects.EmployeeId
+union all
+select Projects.employeeId, employee.FullName, projects.projectid, projects.ProjectName, datediff(enddate,startdate) as Duration
+from Employee right join Projects 
+On employee.EmployeeId=projects.EmployeeId;
+
+use bankingdb;
+update Employee set salary= salary+10000;
+select * from Employee;
+
+-- CROSS JOIN --
+select * from employee 
+cross join address;
+
+-- SELF JOIN --
